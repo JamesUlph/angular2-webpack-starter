@@ -8,6 +8,7 @@ import {bootstrap} from 'angular2/platform/browser';
 */
 import {DIRECTIVES, PIPES, PROVIDERS} from './platform/browser';
 import {ENV_PROVIDERS} from './platform/environment';
+import {HTTP_PROVIDERS} from 'angular2/http';
 
 /*
 * App Component
@@ -22,11 +23,12 @@ import {App, APP_PROVIDERS} from './app';
 export function main(initialHmrState?: any): Promise<any> {
 
   return bootstrap(App, [
+   ...HTTP_PROVIDERS,
     ...ENV_PROVIDERS,
     ...PROVIDERS,
     ...DIRECTIVES,
     ...PIPES,
-    ...APP_PROVIDERS,
+    ...APP_PROVIDERS,    
   ])
   .catch(err => console.error(err));
 

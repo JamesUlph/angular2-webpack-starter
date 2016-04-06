@@ -1,3 +1,14 @@
 <h1>
-      Admin
+      Admin page 1
     </h1>
+    
+    Logged in={{loggedIn}}
+    
+    
+    <input type="text" [(ngModel)]="username">
+    <input type="password" [(ngModel)]="password">
+    
+    <button (click)="login()">Login</button>
+    <button (click)="logout()">Logout</button>
+    
+    <button [disabled]="!loggedIn" (click)="getData()">Get Data</button>
