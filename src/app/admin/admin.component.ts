@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {HTTP_PROVIDERS,Http,Response,Headers} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'admin',
@@ -16,9 +17,10 @@ export class Admin {
   loggedIn:boolean=false;
   username:string;
   password:string;
-  
-  constructor(private http:Http) {    
+  staff$:Observable<any>;
+  constructor(private http:Http,public store: Store<any>) {    
     console.log(this.url);
+    this.staff$=store.select('staff');
   }
   
   getData(){
@@ -29,10 +31,12 @@ export class Admin {
     //h.append('Access-Control-Allow-Methods','POST, GET, PUT, DELETE, OPTIONS');
     
     var data={};
-    
-    this.http.post(this.url+'/api/maintenance',JSON.stringify(data),{headers:h}).map(e=>{return e.json();})
+    this.store.dispatch({type:'LOAD_MAINTENANCE'});
+    return;
+    this.http.post(this.url+'/api/maintenance',JSON.stringify(data),{headers:h}).map((e)=>e.json())
     .subscribe(e=>{
       console.log(e);
+      this.store.dispatch({type:'LOADED_USER',payload:e.result});
     });
     
     
@@ -52,10 +56,12 @@ export class Admin {
         console.log('success');
         localStorage.setItem('token',e.token);
         this.loggedIn=true;
+        this.store.dispatch({type:'LOAD_MAINTENANCE'});
       }
       else {
         console.log('fail');
         this.logout();
+        this.store.dispatch({type:'RESET'});
       }
     })
   }
@@ -64,6 +70,7 @@ export class Admin {
     console.log('perform logout');
     localStorage.clear();
     this.loggedIn=false;
+    this.store.dispatch({type:'RESET'});
   }
   
   login(){

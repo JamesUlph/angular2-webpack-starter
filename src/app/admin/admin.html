@@ -11,4 +11,17 @@
     <button (click)="login()">Login</button>
     <button (click)="logout()">Logout</button>
     
-    <button [disabled]="!loggedIn" (click)="getData()">Get Data</button>
+    <button  (click)="getData()">Get Data</button>
+    
+    <table>
+        <tbody>
+        <tr *ngFor="#i of staff$ | async">
+            <td>{{i.Description}}</td>
+            <td>{{i.Property}}</td>
+            </tr>
+            </tbody>
+        </table>
+    
+    <pre>
+    {{ staff$ | async | json}}
+    </pre>

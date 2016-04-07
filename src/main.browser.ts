@@ -10,16 +10,30 @@ import {DIRECTIVES, PIPES, PROVIDERS} from './platform/browser';
 import {ENV_PROVIDERS} from './platform/environment';
 import {HTTP_PROVIDERS} from 'angular2/http';
 
+import {provideStore} from '@ngrx/store';
+import {createSaga, installSagaMiddleware, whenAction, SagaRunner} from 'store-saga';
+import {ADD_TODO, RESET, todos,MASSIVE} from './todos';
 /*
 * App Component
 * our top level component that holds all of our components
 */
 import {App, APP_PROVIDERS} from './app';
+import {increment} from './sagas/sagas';
+
+const initialState: any = {
+    staff: [{title:'fred'}],
+    items: [],
+    auth: {loggedIn: false, username: ''},
+    loading: false,
+    blob: 'test'};
+
+
 
 /*
  * Bootstrap our Angular app with a top level component `App` and inject
  * our Services and Providers into Angular's dependency injection
  */
+
 export function main(initialHmrState?: any): Promise<any> {
 
   return bootstrap(App, [
@@ -29,6 +43,8 @@ export function main(initialHmrState?: any): Promise<any> {
     ...DIRECTIVES,
     ...PIPES,
     ...APP_PROVIDERS,    
+    provideStore(todos,initialState),
+    installSagaMiddleware(increment)
   ])
   .catch(err => console.error(err));
 

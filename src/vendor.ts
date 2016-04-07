@@ -14,6 +14,8 @@ import 'angular2/router';
 // RxJS
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/catch';
 
 // Angular 2 Material 2
 // TODO(gdi2290): uncomment when material is fixed
