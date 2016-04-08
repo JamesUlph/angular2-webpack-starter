@@ -2,7 +2,34 @@ import {createSaga, installSagaMiddleware, whenAction, SagaRunner, put,Saga,Saga
 import {Http,Headers} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 
-
+export const loginRequest = createSaga((http:Http)=>{
+   return saga$=>saga$.filter(whenAction('LOGIN_REQUEST'))
+   .do(e=>{console.log('login request ',e);
+e.state.loading=true;
+})
+   .delay(1000)
+   .flatMap((saga)=>{
+       console.log(saga);
+        var data={username:saga.action.payload.username,password:saga.action.payload.password};
+        console.log(saga.state);
+       const query=http.post('http://virtual2.ballistix.co.uk:8000/api/token',JSON.stringify(data));
+  
+        return query.map(e=>e.json());
+   })
+   .map( res => {
+     console.log(res);
+     if (res.status==200){
+         localStorage.setItem('token',res.token);
+         return {type:'LOGIN_COMPLETE',payload:res.token};
+     }
+   })
+   .catch(error => {
+       console.log('error');
+       return Observable.of(false);
+   }
+    )
+   
+},[Http]);
 
 export const increment = createSaga((http:Http)=>{
   

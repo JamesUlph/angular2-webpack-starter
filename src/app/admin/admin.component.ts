@@ -18,9 +18,16 @@ export class Admin {
   username:string;
   password:string;
   staff$:Observable<any>;
+  token$:Observable<any>;
+  loggedIn$:Observable<any>;
+  loading$:Observable<any>;
+  
   constructor(private http:Http,public store: Store<any>) {    
     console.log(this.url);
     this.staff$=store.select('staff');
+    this.token$=store.select('token');
+    this.loggedIn$=store.select('loggedIn');
+    this.loading$=store.select('loading');
   }
   
   getData(){
@@ -43,6 +50,9 @@ export class Admin {
   }
   
   doLogin(username,password){
+      
+      this.store.dispatch({type:'LOGIN_REQUEST',payload:{username,password}});
+      return;
     var data={username,password};
     this.http.post(this.url+'/api/token',JSON.stringify(data)).map(e=>{return e.json();}).map(e=>{      
       console.log(e);

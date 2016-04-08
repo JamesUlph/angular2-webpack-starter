@@ -18,7 +18,7 @@ import {ADD_TODO, RESET, todos,MASSIVE} from './todos';
 * our top level component that holds all of our components
 */
 import {App, APP_PROVIDERS} from './app';
-import {increment} from './sagas/sagas';
+import {my_sagas} from './sagas';
 
 const initialState: any = {
     staff: [{title:'fred'}],
@@ -44,7 +44,7 @@ export function main(initialHmrState?: any): Promise<any> {
     ...PIPES,
     ...APP_PROVIDERS,    
     provideStore(todos,initialState),
-    installSagaMiddleware(increment)
+    installSagaMiddleware(...my_sagas)
   ])
   .catch(err => console.error(err));
 

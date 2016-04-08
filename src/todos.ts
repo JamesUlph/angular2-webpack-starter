@@ -15,10 +15,12 @@ export const MASSIVE2 = 'MASSIVE2';
 export const BLOB = 'BLOB';
 export const LOAD_USER = 'LOAD_USER';
 export const LOADED_USER = 'LOADED_USER';
+export const LOGIN_COMPLETE='LOGIN_COMPLETE';
 
 var initialState: any = {
     staff: [],
     items: [],
+    loggedIn: false,
     auth: {loggedIn: false, username: ''},
     loading: false,
     blob: 'test'};
@@ -32,7 +34,7 @@ export const todos: Reducer<any> = (state = initialState, action: Action) => {
 
         case RESET:
         console.log('reset');
-        return Object.assign({}, state, {staff:[],items: [], loading: false});
+        return Object.assign({}, initialState);
 
         case MASSIVE:
         console.log('massive fired');
@@ -58,12 +60,16 @@ export const todos: Reducer<any> = (state = initialState, action: Action) => {
         return Object.assign({}, state, {loading: true, auth: {loggedIn: true, username: action.payload.username, token: action.payload.token}});
 
         case CLEAR_LOGIN:
+        console.log('clear');
         return Object.assign({}, state, {auth: {loggedIn: false}});
 
         case LOADED_USER:
         console.log('LOADED_USER payload=',action.payload);
         return Object.assign({},state,{staff:action.payload});
 
+        case LOGIN_COMPLETE:
+        return Object.assign({},state,{loading:false,loggedIn:true,token:action.payload});
+        
     //console.log(t);
       //return t;
        //  return state;

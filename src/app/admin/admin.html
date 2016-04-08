@@ -1,9 +1,12 @@
 <h1>
-      Admin page 1
+      Admin
     </h1>
     
-    Logged in={{loggedIn}}
+    {{loading$ | async}}
     
+    Logged in={{loggedIn$ | async}}
+    
+    token={{token$ | async}}
     
     <input type="text" [(ngModel)]="username">
     <input type="password" [(ngModel)]="password">
@@ -18,6 +21,7 @@
         <tr *ngFor="#i of staff$ | async">
             <td>{{i.Description}}</td>
             <td>{{i.Property}}</td>
+            <td>{{i.ContactNumber}}</td>
             </tr>
             </tbody>
         </table>
