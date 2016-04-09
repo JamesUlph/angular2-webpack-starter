@@ -13,6 +13,9 @@ import {HTTP_PROVIDERS} from 'angular2/http';
 import {provideStore} from '@ngrx/store';
 import {createSaga, installSagaMiddleware, whenAction, SagaRunner} from 'store-saga';
 import {ADD_TODO, RESET, todos,MASSIVE} from './todos';
+
+import { provideRouter } from '@ngrx/router';
+import {routes} from './routes';
 /*
 * App Component
 * our top level component that holds all of our components
@@ -44,6 +47,7 @@ export function main(initialHmrState?: any): Promise<any> {
     ...PIPES,
     ...APP_PROVIDERS,    
     provideStore(todos,initialState),
+    provideRouter(routes),
     installSagaMiddleware(...my_sagas)
   ])
   .catch(err => console.error(err));

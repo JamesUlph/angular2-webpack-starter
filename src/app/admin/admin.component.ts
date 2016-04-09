@@ -27,7 +27,7 @@ export class Admin {
     this.staff$=store.select('staff');
     this.token$=store.select('token');
     this.loggedIn$=store.select('loggedIn');
-    this.loading$=store.select('loading');
+    this.loading$=store.pluck('loading').do(e=>console.log(e));
   }
   
   getData(){

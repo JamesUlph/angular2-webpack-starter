@@ -8,13 +8,27 @@
     
     token={{token$ | async}}
     
-    <input type="text" [(ngModel)]="username">
-    <input type="password" [(ngModel)]="password">
+    <form (ngSubmit)="login()" autocomplete="false">
+   
+     <md-input
+        placeholder="Username"
+        [value]="username"
+        (input)="username = $event.target.value"
+        autofocus>
+      </md-input>
+    <md-input
+        placeholder="Password"
+        [value]="password"
+        (input)="password = $event.target.value"
+        type="password"
+        autofocus>
+      </md-input>
     
-    <button (click)="login()">Login</button>
-    <button (click)="logout()">Logout</button>
+    <button md-raised-button color="primary" (click)="login()">Login</button>
+    </form>
+    <button md-raised-button color="secondary" (click)="logout()">Logout</button>
     
-    <button  (click)="getData()">Get Data</button>
+    <button md-raised-button color="primary"  (click)="getData()">Get Data</button>
     
     <table>
         <tbody>
