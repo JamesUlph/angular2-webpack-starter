@@ -7,7 +7,7 @@ export const loginRequest = createSaga((http:Http)=>{
    .do(e=>{console.log('login request ',e);
 e.state.loading=true;
 })
-   .delay(1000)
+   //.delay(1000)
    .flatMap((saga)=>{
        console.log(saga);
         var data={username:saga.action.payload.username,password:saga.action.payload.password};
