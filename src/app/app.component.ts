@@ -38,6 +38,7 @@ import {Admin} from './admin';
     }
   `],
   template: `
+<<<<<<< HEAD
     <md-toolbar color="primary">
       <span>{{ name }}</span>
       <nav>
@@ -59,6 +60,28 @@ import {Admin} from './admin';
         </ul>
       </nav>
     </md-toolbar>
+=======
+    <header>
+      <md-toolbar color="primary">
+        <span>{{ name }}</span>
+        <nav>
+          <ul>
+            <li router-active>
+              <a [routerLink]=" ['Index'] ">Index</a>
+            </li>
+            |
+            <li router-active>
+              <a [routerLink]=" ['Home'] ">Home</a>
+            </li>
+            |
+            <li router-active>
+              <a [routerLink]=" ['About'] ">About</a>
+            </li>
+          </ul>
+        </nav>
+      </md-toolbar>
+    </header>
+>>>>>>> upstream/master
 
     <main>
       <router-outlet></router-outlet>
@@ -78,8 +101,12 @@ import {Admin} from './admin';
   { path: '/',      name: 'Index', component: Home, useAsDefault: true },
   { path: '/home',  name: 'Home',  component: Home },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
+<<<<<<< HEAD
   { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
   { path: '/admin', name:'Admin',component:Admin}
+=======
+  { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') }
+>>>>>>> upstream/master
 ])
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
