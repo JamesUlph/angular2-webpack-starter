@@ -45,14 +45,11 @@ export function main(initialHmrState?: any): Promise<any> {
     ...PROVIDERS,
     ...DIRECTIVES,
     ...PIPES,
-<<<<<<< HEAD
-    ...APP_PROVIDERS,    
+    ...APP_PROVIDERS,  
     provideStore(todos,initialState),
     provideRouter(routes),
     installSagaMiddleware(...my_sagas)
-=======
-    ...APP_PROVIDERS
->>>>>>> upstream/master
+
   ])
   .catch(err => console.error(err));
 
